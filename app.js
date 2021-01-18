@@ -15,7 +15,7 @@ app.use('/api/products', productsRouter)
 app.use('/api/availability', availabilityRouter)
 
 app.get('/*', (req, res) => {
-    let url = path.join(__dirname, '../build', 'index.html')
+    let url = path.join(__dirname, 'build', 'index.html')
     res.sendFile(url)
 });
 

@@ -13,8 +13,6 @@ app.use(middleware.requestLogger)
 app.use('/api/products', productsRouter)
 app.use('/api/availability', availabilityRouter)
 
-app.use(middleware.unknownEndpoint)
-
 app.use(middleware.errorHandler)
 
 module.exports = app

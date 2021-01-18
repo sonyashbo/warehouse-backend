@@ -10,12 +10,11 @@ availabilityRouter.get('/:manufacturer/:id', async (request, response, next) => 
 
     let cachedData = cache.get(manufacturer)
     if (!cachedData) {
-        const availability = await axios.get(`${baseUrl}/${manufacturer}`)
-        const data = availability.data.response
-        let itemsToCache = {};
+        const data = await getManufacturerAvailability(manufacturer)
+        const itemsToCache = {};
         for (let i = 0; i < data.length; i++) {
-            const xml=data[i]
-            const availability = getAvailability(xml)
+            const xml = data[i]
+            const availability = getItemAvailability(xml)
             itemsToCache[xml.id] = availability
         }
 
@@ -30,10 +29,20 @@ availabilityRouter.get('/:manufacturer/:id', async (request, response, next) => 
 
 })
 
-const getAvailability = (xml) => {
+const getItemAvailability = (xml) => {
     const payload = convert.xml2json(xml.DATAPAYLOAD, {compact: true, spaces: 4});
     const jsonPayload = JSON.parse(payload)
     return jsonPayload.AVAILABILITY.INSTOCKVALUE._text
+}
+
+//workaround for build-in API bug
+const getManufacturerAvailability = async (manufacturer) => {
+    let availability = ""
+    while (!Array.isArray(availability)) {
+        const result = await axios.get(`${baseUrl}/${manufacturer}`)
+        availability = result.data.response
+    }
+    return availability
 }
 
 module.exports = availabilityRouter

@@ -14,12 +14,7 @@ app.use(middleware.requestLogger)
 app.use('/api/products', productsRouter)
 app.use('/api/availability', availabilityRouter)
 
-app.get('/*', (req, res) => {
-    let url = path.join(__dirname, 'build', 'index.html')
-    res.sendFile(url)
-});
-
-//app.use(middleware.unknownEndpoint)
+app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
 module.exports = app

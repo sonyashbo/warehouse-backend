@@ -1,4 +1,5 @@
 const logger = require('./logger')
+const path = require("path");
 
 const requestLogger = (request, response, next) => {
     logger.info('Method:', request.method)
@@ -14,7 +15,13 @@ const errorHandler = (error, request, response, next) => {
     next(error)
 }
 
+const unknownEndpoint = (error, request, response, next) => {
+    let url = path.join(__dirname, '../build', 'index.html');
+    response.sendFile(url);
+}
+
 module.exports = {
     requestLogger,
+    unknownEndpoint,
     errorHandler
 }

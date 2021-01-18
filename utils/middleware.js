@@ -16,8 +16,8 @@ const errorHandler = (error, request, response, next) => {
 }
 
 const unknownEndpoint = (request, response) => {
-    let url = path.join(__dirname, 'build', 'index.html')
-    response.status(404).send({url})
+    let url = path.join(__dirname, '../build', 'index.html')
+    response.sendFile(url)
 }
 
 module.exports = {

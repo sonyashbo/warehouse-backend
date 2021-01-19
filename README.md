@@ -5,6 +5,8 @@
 * [Demo](#demo)
 * [Caching](#caching)
 * [API bug workaround](#api-bug-workaround)
+* [Frontend repository](#frontend-repository)
+
 
 ### Description
 This is a web application for viewing information about three kinds of products - gloves, beanies and facemasks - in a warehouse.
@@ -26,3 +28,6 @@ Cached values are saved for 5 minutes, as remote API also has a cache for 5 minu
 ### API bug workaround
 One of the APIs contains an intentional bug - sometimes instead of array of objects it returns a string "[]".
 If that happens, application will continue making API calls until an array of objects is returned.
+
+### Frontend repository
+Frontend repository can be found on [https://github.com/sonyashbo/warehouse](https://github.com/sonyashbo/warehouse)
